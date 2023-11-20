@@ -41,6 +41,14 @@ document.getElementById("gitBut").addEventListener('click', () => {
             let errorCode = err.code
             let errorMsg = err.message
             console.log(errorCode, errorMsg);
+            if (errorCode == "auth/account-exists-with-different-credential") {
+                emptyError.style.display = "block"
+                emptyError.textContent = "An account already exist with this email address";
+                emptyError.style.color = "orange"
+                setTimeout(() => {
+                    emptyError.style.display = "none"
+                }, 3000)
+            }
         })
 })
 
