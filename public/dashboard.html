@@ -19,11 +19,16 @@
                     </a>
                     <a class="navbar-brand" href="#">Full App</a>
                 </div>
-                <div class="col-6"></div>
+                <div class="col-6 text-center">
+                    <h5 id="named"></h5>
+                </div>
+                <div class="col-1">
+                    <img style="border-Radius: 100%;" width="30" src="" alt="profile picture" id="dp" />
+                </div>
                 <div class="col-2">
                     <div id="emailA"></div>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <button class="btn btn-danger">Sign out</button>
                 </div>
 
@@ -62,10 +67,8 @@
             if (user) {
                 console.log(user);
                 emailA.innerHTML = `${user.email}`
-                show.innerHTML = `
-                    <h3>Welcome ${user.displayName}</h3>
-                    <img style="border-Radius: 100%;" src="${user.photoURL}" alt="profile picture" />
-                `
+                dp.src = `${user.photoURL}`
+                named.textContent = `Welcome ${user.displayName}`
             } else {
                 window.location.href = "404.html"
             }
