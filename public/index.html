@@ -13,6 +13,7 @@
     <div class="text-center mx-auto col-lg-4 mt-lg-5 col-10 mt-4">
         <div class="form-container">
             <p class="title">Login</p>
+            <p id="emptyError"></p>
             <form class="form">
                 <div class="input-group">
                     <label for="email">Email</label>
@@ -25,7 +26,7 @@
                         <a rel="noopener noreferrer" href="#">Forgot Password ?</a>
                     </div>
                 </div>
-                <button class="sign">Sign in</button>
+                <button type="button" class="sign" onclick="signIn()">Sign in</button>
             </form>
             <div class="social-message">
                 <div class="line"></div>

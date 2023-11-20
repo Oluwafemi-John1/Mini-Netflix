@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -57,7 +57,7 @@ const signUp = () => {
             .then((userCredential) => {
                 const user = userCredential.user
                 console.log(user);
-                if(email==user.email) {
+                if (email == user.email) {
                     window.location.href = "index.html"
                 }
             })
@@ -87,3 +87,42 @@ const signUp = () => {
 
 }
 window.signUp = signUp
+
+// Sign In Page//
+const signIn = () => {
+    let email = document.getElementById('email').value
+    let password = document.getElementById('password').value
+    if (email != "" && password != "") {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user
+                console.log(user);
+                if (user) {
+                    window.location.href = "dashboard.html"
+                } else {
+                    window.location.href = "index.html"
+                }
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+                if (errorCode == "auth/invalid-login-credentials") {
+                    emptyError.textContent = "Incorrect email or password";
+                    emptyError.style.color = "orange"
+                    setTimeout(() => {
+                        emptyError.style.display = "none"
+                    }, 3000)
+                }
+                document.getElementById('email').value = ""
+                document.getElementById('password').value = ""
+            })
+    } else {
+        emptyError.textContent = "Please fill in the empty spaces provided";
+        emptyError.style.color = "red"
+        setTimeout(() => {
+            emptyError.style.display = "none"
+        }, 3000)
+    }
+}
+window.signIn = signIn
