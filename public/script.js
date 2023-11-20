@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -36,7 +36,7 @@ const gBut = () => {
 window.gBut = gBut
 
 // Github Sign in //
-document.getElementById("gitBut").addEventListener('click', () => {
+const gitBut = () => {
     signInWithPopup(auth, githubProvider)
         .then((result) => {
             let user = result.user
@@ -60,7 +60,8 @@ document.getElementById("gitBut").addEventListener('click', () => {
                 }, 3000)
             }
         })
-})
+}
+window.gitBut = gitBut
 
 
 // Sign Up page //
@@ -144,3 +145,5 @@ const signIn = () => {
     }
 }
 window.signIn = signIn
+
+// Dashboard //

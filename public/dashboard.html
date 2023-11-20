@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <h1>Welcome to Dashboard</h1>
+    <div id="show"></div>
+    <script type="module" src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBMqc7bv0ZOHam60zdaoZXMtHfNWXBwCRo",
+            authDomain: "full-project-81848.firebaseapp.com",
+            projectId: "full-project-81848",
+            storageBucket: "full-project-81848.appspot.com",
+            messagingSenderId: "950678778632",
+            appId: "1:950678778632:web:ed95cea3d3f8eacc1132bd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log(user);
+                show.innerHTML = `
+                    <h3>Welcome ${user.displayName}</h3>
+                    <h5>Your email</h5>
+                `
+            } else {
+                window.location.href = "404.html"
+            }
+        })
+    </script>
 </body>
+
 </html>
