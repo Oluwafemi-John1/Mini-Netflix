@@ -17,11 +17,15 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
+// Google sign in //
 const gBut = () => {
     signInWithPopup(auth, provider)
         .then((result) => {
             let user = result.user
             console.log(user);
+            if (user) {
+                window.location.href = "dashboard.html"
+            }
         })
         .catch((err) => {
             let errorCode = err.code
@@ -31,11 +35,17 @@ const gBut = () => {
 }
 window.gBut = gBut
 
+// Github Sign in //
 document.getElementById("gitBut").addEventListener('click', () => {
     signInWithPopup(auth, githubProvider)
         .then((result) => {
             let user = result.user
             console.log(user);
+            if (user) {
+                window.location.href = "dashboard.html"
+            } else {
+                window.location.href = "index.html"
+            }
         })
         .catch((err) => {
             let errorCode = err.code
