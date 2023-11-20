@@ -31,7 +31,8 @@
                 console.log(user);
                 show.innerHTML = `
                     <h3>Welcome ${user.displayName}</h3>
-                    <h5>Your email</h5>
+                    <h5>Your email address is ${user.email}</h5>
+                    <img style="border-Radius: 100%;" src="${user.photoURL}" alt="profile picture" />
                 `
             } else {
                 window.location.href = "404.html"
