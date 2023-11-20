@@ -48,27 +48,34 @@ document.getElementById("gitBut").addEventListener('click', () => {
 // Sign Up page //
 const signUp = () => {
     let email = document.getElementById('email').value
-    let pass = document.getElementById('password').value
+    let password = document.getElementById('password').value
     let fname = document.getElementById('firstname').value
     let lname = document.getElementById('lastname').value
 
-    if (email != "" && pass != "" && fname != "" && lname != "") {
-        createUserWithEmailAndPassword(auth, email, pass, fname, lname)
+    if (email != "" && password != "" && fname != "" && lname != "") {
+        createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user
                 console.log(user);
+                if(email==user.email) {
+                    window.location.href = "index.html"
+                }
             })
             .catch((error) => {
                 const errorCode = error.code;
-                // const errorMessage = error.message;
-                console.log(errorCode);
-                if (errorCode == "auth/operation-not-allowed") {
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+                if (errorCode == "auth/email-already-in-use") {
                     emptyError.textContent = "An account already exist with this email address";
                     emptyError.style.color = "orange"
                     setTimeout(() => {
                         emptyError.style.display = "none"
                     }, 3000)
                 }
+                document.getElementById('email').value = ""
+                document.getElementById('password').value = ""
+                document.getElementById('firstname').value = ""
+                document.getElementById('lastname').value = ""
             })
     } else {
         emptyError.textContent = "Please fill in the empty spaces provided";
