@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,8 +14,23 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 const gBut = () => {
-    alert("jkwk")
+    signInWithPopup(auth, provider)
+    .then((result)=>{
+        let user = result.user
+        console.log(user);
+    })
+    .catch((err)=>{
+        let errorCode = err.code
+        let errorMsg = err.message
+        console.log(errorCode, errorMsg);
+    })
 }
 window.gBut = gBut
+
+const gitBut = () => {
+    
+}
+window.gitBut = gitBut
