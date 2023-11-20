@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider  } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,6 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const gBut = () => {
     signInWithPopup(auth, provider)
@@ -30,7 +31,15 @@ const gBut = () => {
 }
 window.gBut = gBut
 
-const gitBut = () => {
-    
-}
-window.gitBut = gitBut
+document.getElementById("gitBut").addEventListener('click', ()=>{
+    signInWithPopup(auth, githubProvider)
+    .then((result)=>{
+        let user = result.user
+        console.log(user);
+    })
+    .catch((err)=>{
+        let errorCode = err.code
+        let errorMsg = err.message
+        console.log(errorCode, errorMsg);
+    })
+})
