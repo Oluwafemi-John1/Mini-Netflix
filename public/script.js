@@ -16,6 +16,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
 
 // Google sign in //
 const gBut = () => {
@@ -65,8 +66,24 @@ window.gitBut = gitBut
 
 // Twitter Sign In//
 const twitLog = () => {
-    
+    signInWithPopup(auth, twitterProvider)
+        .then((result) => {
+            const credential = TwitterAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const secret = credential.secret;
+            console.log(token, secret);
+            const user = result.user
+            console.log(user);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            console.log(errorCode, errorMessage, email);
+        })
 }
+window.twitLog = twitLog
 
 // Sign Up page //
 const signUp = () => {
@@ -153,12 +170,12 @@ window.signIn = signIn
 // Dashboard //
 const signUserOut = () => {
     signOut(auth)
-    .then(()=>{
-        console.log('user successfully signed out');
-    })
-    .catch((err)=>{
-        console.log(err + "User signed out");
-    })
+        .then(() => {
+            console.log('user successfully signed out');
+        })
+        .catch((err) => {
+            console.log(err + "User signed out");
+        })
 }
 
 window.signUserOut = signUserOut
