@@ -29,7 +29,7 @@
                     <div id="emailA"></div>
                 </div>
                 <div class="col-1">
-                    <button class="btn btn-danger">Sign out</button>
+                    <button class="btn btn-danger" onclick="signUserOut()">Sign out</button>
                 </div>
 
             </div>
@@ -70,7 +70,7 @@
                 dp.src = `${user.photoURL}`
                 named.textContent = `Welcome ${user.displayName}`
             } else {
-                window.location.href = "404.html"
+                window.location.href = "index.html"
             }
         })
     </script>

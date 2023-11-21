@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -147,3 +147,14 @@ const signIn = () => {
 window.signIn = signIn
 
 // Dashboard //
+const signUserOut = () => {
+    signOut(auth)
+    .then(()=>{
+        console.log('user successfully signed out');
+    })
+    .catch((err)=>{
+        console.log(err + "User signed out");
+    })
+}
+
+window.signUserOut = signUserOut
