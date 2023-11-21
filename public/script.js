@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, TwitterAuthProvider } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, TwitterAuthProvider, credentialFromResult } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
