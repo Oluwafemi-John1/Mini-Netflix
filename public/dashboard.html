@@ -47,15 +47,19 @@
         </div>
     </nav>
     <div class="col-lg-6 mx-auto mt-lg-5 shadow-sm p-4">
+        <div id="saved" class="text-center"></div>
         <input type="text" class="form-control my-3" placeholder="Enter your todo" id="todo">
         <input type="text" class="form-control my-3" placeholder="Todo description" id="todoDesc">
+        <input type="file" class="form-control my-3" placeholder="Put your file" id="myFile">
         <button class="btn btn-warning w-100" onclick="addTodo()">Submit</button>
+        <p class="text-center my-2" id="prog"></p>
     </div>
     <!-- <script type="module" src="script.js"></script> -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
         import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        import { getStorage, ref as stref, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBMqc7bv0ZOHam60zdaoZXMtHfNWXBwCRo",
@@ -70,6 +74,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const database = getDatabase(app);
+        const storage = getStorage(app)
 
 
         onAuthStateChanged(auth, (user) => {
@@ -93,18 +98,47 @@
                     let todoObj = {
                         todo: todo.value,
                         desc: todoDesc.value,
+                        file: myFile.files[0].name,
                         userName,
                         date,
                         time
                     }
+                    let filename = myFile.files[0].name
+                    let uploadedFile = myFile.files[0]
                     console.log(todoObj);
                     let dbRef = ref(database, "allTodos/3")
                     let done = set(dbRef, todoObj)
-                    if (done) {
-                        alert("saved")
+                    
+                    const storageRef = stref(storage, `fullapp/${todoObj.userName}/${filename}`);
+                    let doneStorage = uploadBytesResumable(storageRef, uploadedFile)
+                    doneStorage.on('state_changed',(snapshot)=>{
+                        let progress = snapshot.bytesTransferred
+                        let total = snapshot.totalBytes
+                        const showProgress = ((progress/total) * 100).toFixed(2)
+                        console.log(showProgress);
+                        if (showProgress < 100) {
+                            prog.innerHTML = `
+                                <div class="alert alert-danger p-2">${showProgress}%</div>
+                            `
+                        } else if (showProgress == 100) {
+                            prog.innerHTML = `
+                                <div class="alert alert-success p-2">${showProgress}%</div>
+                            `
+                            setTimeout(()=>{
+                                prog.style.display = "none"
+                            }, 3000)
+                        }
+                    })
+                    if (done && doneStorage) {
+                        saved.innerHTML = `
+                            <div class="alert alert-success p-2">Successful!</div>
+                        `
                     } else {
-                        alert("failed to save")
+                        saved.innerHTML = `
+                            <div class="alert alert-danger p-2">Failed to save!</div>
+                        `
                     }
+                    
                 } else {
                     alert("Guy, guy, why now, why you dey fall my hand")
                 }
