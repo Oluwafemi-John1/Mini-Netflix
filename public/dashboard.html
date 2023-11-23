@@ -133,10 +133,16 @@
                         saved.innerHTML = `
                             <div class="alert alert-success p-2">Successful!</div>
                         `
+                        setTimeout(()=>{
+                                saved.style.display = "none"
+                            }, 3000)
                     } else {
                         saved.innerHTML = `
                             <div class="alert alert-danger p-2">Failed to save!</div>
                         `
+                        setTimeout(()=>{
+                                saved.style.display = "none"
+                            }, 3000)
                     }
                     
                 } else {
