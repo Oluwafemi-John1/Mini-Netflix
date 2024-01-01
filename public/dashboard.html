@@ -81,7 +81,7 @@
         console.log(apiKey);
 
         const signUserOut = () => {
-            signOut
+            signOut(auth).then((res)=>{console.log(res);})
         }
         window.signUserOut = signUserOut
 
