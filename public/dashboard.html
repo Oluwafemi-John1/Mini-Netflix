@@ -80,6 +80,11 @@
         };
         console.log(apiKey);
 
+        const signUserOut = () => {
+
+        }
+        window.signUserOut = signUserOut
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const database = getDatabase(app);
