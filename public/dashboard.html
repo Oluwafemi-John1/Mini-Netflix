@@ -68,7 +68,7 @@
         let messagingSenderId = firebaseConfigs.messagingSenderId
         let appId = firebaseConfigs.appId
         let databaseURL = firebaseConfigs.databaseURL
-        
+
         const firebaseConfig = {
             apiKey,
             authDomain,
@@ -81,7 +81,7 @@
         console.log(apiKey);
 
         const signUserOut = () => {
-            signOut(auth).then((res)=>{console.log(res);})
+            signOut(auth).then((res) => { console.log(res); })
         }
         window.signUserOut = signUserOut
 
@@ -122,13 +122,13 @@
                     console.log(todoObj);
                     let dbRef = ref(database, "allTodos/3")
                     let done = set(dbRef, todoObj)
-                    
+
                     const storageRef = stref(storage, `fullapp/${todoObj.userName}/${filename}`);
                     let doneStorage = uploadBytesResumable(storageRef, uploadedFile)
-                    doneStorage.on('state_changed',(snapshot)=>{
+                    doneStorage.on('state_changed', (snapshot) => {
                         let progress = snapshot.bytesTransferred
                         let total = snapshot.totalBytes
-                        const showProgress = ((progress/total) * 100).toFixed(2)
+                        const showProgress = ((progress / total) * 100).toFixed(2)
                         console.log(showProgress);
                         if (showProgress < 100) {
                             prog.innerHTML = `
@@ -138,7 +138,7 @@
                             prog.innerHTML = `
                                 <div class="alert alert-success p-2">${showProgress}%</div>
                             `
-                            setTimeout(()=>{
+                            setTimeout(() => {
                                 prog.style.display = "none"
                             }, 3000)
                         }
@@ -147,32 +147,37 @@
                         saved.innerHTML = `
                             <div class="alert alert-success p-2">Successful!</div>
                         `
-                        setTimeout(()=>{
-                                saved.style.display = "none"
-                            }, 3000)
+                        setTimeout(() => {
+                            saved.style.display = "none"
+                        }, 3000)
                     } else {
                         saved.innerHTML = `
                             <div class="alert alert-danger p-2">Failed to save!</div>
                         `
-                        setTimeout(()=>{
-                                saved.style.display = "none"
-                            }, 3000)
+                        setTimeout(() => {
+                            saved.style.display = "none"
+                        }, 3000)
                     }
-                    
+
                 } else {
-                    alert("Guy, guy, why now, why you dey fall my hand")
+                    saved.innerHTML = `<div class='alert alert-danger p-2>Spaces cannot be empty</>'`
+                    setTimeout(() => {
+                        saved.style.display = "none"
+                    }, 3000)
                 }
             })
         }
         window.addTodo = addTodo
 
         let dbRef = ref(database, "allTodos")
-        onValue(dbRef,(snapshot)=>{
+        onValue(dbRef, (snapshot) => {
             const data = snapshot.val()
             console.log(data);
         })
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
