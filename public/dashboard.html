@@ -175,7 +175,10 @@
             const data = snapshot.val()
             console.log(data);
             data.map((val, ind)=>{
-                info.innerHTML += `${ind}`
+                info.innerHTML += `
+                <p>${ind}</p>
+                <h4></h4>
+                `
             })
         })
     </script>
