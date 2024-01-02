@@ -55,6 +55,7 @@
         <button class="btn btn-warning w-100" onclick="addTodo()">Submit</button>
         <p class="text-center my-2" id="prog"></p>
     </div>
+    <div id="info"></div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
@@ -174,7 +175,7 @@
             const data = snapshot.val()
             console.log(data);
             data.map((val, ind)=>{
-                
+                info.innerHTML += `${ind}`
             })
         })
     </script>
