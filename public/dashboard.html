@@ -55,7 +55,7 @@
         <button class="btn btn-warning w-100" onclick="addTodo()">Submit</button>
         <p class="text-center my-2" id="prog"></p>
     </div>
-    <div id="info"></div>
+    <div id="info" style="color: yellowgreen;"></div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
@@ -177,7 +177,7 @@
             data.map((val, ind)=>{
                 info.innerHTML += `
                 <p>${ind+1}</p>
-                <h4>${val.date}, ${val.time}</h4>
+                <small>${val.date}, ${val.time}</small>
                 `
             })
         })
