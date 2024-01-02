@@ -176,8 +176,8 @@
             console.log(data);
             data.map((val, ind)=>{
                 info.innerHTML += `
-                <p>${ind}</p>
-                <h4></h4>
+                <p>${ind+1}</p>
+                <h4>${val.date}, ${val.time}</h4>
                 `
             })
         })
